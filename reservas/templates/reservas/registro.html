@@ -106,10 +106,14 @@
         </form>
 
         {% if mensaje %}
-        <p class="{% if '✅' in mensaje %}success{% else %}error{% endif %}">
+        <p class="{% if '' in mensaje %}success{% else %}error{% endif %}">
             {{ mensaje }}
         </p>
         {% endif %}
+
+        <p style="text-align:center;">
+        Ya tienes una cuenta <a href="{% url 'login' %}">Inicia sesión</a>
+    </p>
     </div>
 
 </body>
