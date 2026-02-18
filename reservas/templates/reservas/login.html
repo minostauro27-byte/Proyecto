@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #36b9cc, #4e73df);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        h2 { text-align: center; }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            background: #4e73df;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2e59d9;
+        }
+        .error { color: red; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Iniciar Sesión</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Correo" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Ingresar</button>
+    </form>
+
+    {% for message in messages %}
+        <p class="error">{{ message }}</p>
+    {% endfor %}
+
+    <p style="text-align:center;">
+        ¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate</a>
+    </p>
+</div>
+
+</body>
+</html>

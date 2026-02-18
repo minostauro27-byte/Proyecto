@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Nuevo Usuario</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 35px;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4e73df;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4e73df;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2e59d9;
+        }
+
+        .success {
+            margin-top: 15px;
+            color: #1cc88a;
+            font-weight: bold;
+        }
+
+        .error {
+            margin-top: 15px;
+            color: #e74a3b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Registro</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="user1@gmail.com" required>
+            
+            <label>Contraseña:</label>
+            <input type="password" name="password" required>
+            
+            <button type="submit">Crear Cuenta</button>
+        </form>
+
+        {% if mensaje %}
+        <p class="{% if '✅' in mensaje %}success{% else %}error{% endif %}">
+            {{ mensaje }}
+        </p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

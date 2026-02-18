@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f8f9fc;
+            text-align: center;
+            padding-top: 100px;
+        }
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 20px;
+            background: #4e73df;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        a:hover { background: #2e59d9; }
+    </style>
+</head>
+<body>
+
+<h1>Bienvenido {{ request.session.email }}</h1>
+
+<a href="{% url 'crear_reserva' %}">Crear Reserva</a>
+<a href="{% url 'mis_reservas' %}">Mis Reservas</a>
+
+</body>
+
+<a href="{% url 'logout' %}">
+    <button>Cerrar Sesión</button>
+</a>
+
+</html>

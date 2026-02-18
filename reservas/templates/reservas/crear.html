@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Reserva</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f8f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            background: #1cc88a;
+            color: white;
+            border: none;
+        }
+        button:hover { background: #17a673; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Nueva Reserva</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="habitacion" placeholder="Número de habitación" required>
+        <input type="date" name="fecha_entrada" required>
+        <input type="date" name="fecha_salida" required>
+        <button type="submit">Reservar</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}">Volver</a>
+</div>
+
+</body>
+</html>

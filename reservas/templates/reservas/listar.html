@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mis Reservas</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f8f9fc;
+            padding: 40px;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th { background: #4e73df; color: white; }
+        a {
+            padding: 6px 12px;
+            background: #e74a3b;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        a:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+
+<h2>Mis Reservas</h2>
+
+<table>
+    <tr>
+        <th>Habitación</th>
+        <th>Entrada</th>
+        <th>Salida</th>
+        <th>Estado</th>
+        <th>Acción</th>
+    </tr>
+
+    {% for reserva in reservas %}
+    <tr>
+        <td>{{ reserva.habitacion }}</td>
+        <td>{{ reserva.fecha_entrada }}</td>
+        <td>{{ reserva.fecha_salida }}</td>
+        <td>{{ reserva.estado }}</td>
+        <td>
+            {% if reserva.estado != "Cancelada" %}
+            <a href="{% url 'cancelar_reserva' reserva.id %}">Cancelar</a>
+            {% else %}
+            Cancelada
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+<a href="{% url 'dashboard' %}" style="background:#4e73df;">Volver</a>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+venv/
+
+__pycache__/
+*.py[cod]
+
+*.sqlite3
+
+# Variables de entorno y credenciales
+#.env
+#config/serviceAccountKey.json
+#*.json
+staticfiles/
+media/
