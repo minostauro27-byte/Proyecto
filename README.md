@@ -29,10 +29,10 @@ Para probar el proyecto debes seguir los siguientes pasos:
    - Luego realizamos las migraciones por medio de:
    <pre> py manage.py makemigrations </pre>
    ---
-    <pre>  py manage.py migrate  </pre>
+  <pre>  py manage.py migrate  </pre>
    ---
    Luego simplemente levantamos elservidor con el comando
-    <pre> py manage.py runserver </pre>
+   <pre> py manage.py runserver </pre>
 
    Y para probar la aplicación solo deberas ir a la dirrección mostrada por el sistema.
    Ejemplo:
