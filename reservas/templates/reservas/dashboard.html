@@ -1,37 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Dashboard</title>
     <style>
-        body {
-            font-family: Arial;
-            background: #f8f9fc;
-            text-align: center;
-            padding-top: 100px;
+        body { font-family: sans-serif; background: #f4f7f6; margin: 0; padding: 20px; text-align: center; }
+        .nav { background: #333; color: white; padding: 10px; margin-bottom: 30px; border-radius: 8px; }
+        .nav a { color: #ff4b5c; text-decoration: none; font-weight: bold; margin-left: 15px; }
+        .container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .card { 
+            background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px; 
+            width: 200px; text-decoration: none; color: #333; transition: 0.3s;
         }
-        a {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 20px;
-            background: #4e73df;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-        a:hover { background: #2e59d9; }
+        .card:hover { border-color: #4e73df; background: #f0f4ff; }
+        h3 { margin-top: 0; color: #4e73df; }
     </style>
 </head>
 <body>
 
-<h1>Bienvenido {{ request.session.email }}</h1>
+<div class="nav">
+    Conectado como: <strong>{{ request.session.email }}</strong>
+    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+</div>
 
-<a href="{% url 'crear_reserva' %}">Crear Reserva</a>
-<a href="{% url 'mis_reservas' %}">Mis Reservas</a>
+<h1>Bienvenido</h1>
+
+<div class="container">
+    <a href="{% url 'crear_reserva' %}" class="card">
+        <h3> Crear</h3>
+        <p>Nueva reserva</p>
+    </a>
+
+    <a href="{% url 'mis_reservas' %}" class="card">
+        <h3> Listado</h3>
+        <p>Ver mis reservas</p>
+    </a>
+</div>
 
 </body>
-
-<a href="{% url 'logout' %}">
-    <button>Cerrar Sesión</button>
-</a>
-
 </html>

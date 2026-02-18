@@ -37,6 +37,7 @@
 
     <form method="POST">
         {% csrf_token %}
+        <input type="text" name="nombre_cliente" placeholder="Nombre del cliente" required>
         <input type="text" name="habitacion" placeholder="Número de habitación" required>
         <input type="date" name="fecha_entrada" required>
         <input type="date" name="fecha_salida" required>

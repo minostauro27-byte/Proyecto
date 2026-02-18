@@ -81,6 +81,7 @@ def dashboard(request):
 @login_required_firebase
 def crear_reserva(request):
     if request.method == 'POST':
+        nombre_cliente = request.POST.get('nombre_cliente')
         habitacion = request.POST.get('habitacion')
         fecha_entrada = request.POST.get('fecha_entrada')
         fecha_salida = request.POST.get('fecha_salida')
@@ -89,6 +90,7 @@ def crear_reserva(request):
         try:
             db.collection('reservas').add({
                 'cliente_id': uid,
+                'nombre_cliente': nombre_cliente,
                 'habitacion': habitacion,
                 'fecha_entrada': fecha_entrada,
                 'fecha_salida': fecha_salida,
@@ -135,3 +137,37 @@ def cancelar_reserva(request, reserva_id):
 def cerrar_sesion(request):
     request.session.flush() 
     return redirect('login')
+
+@login_required_firebase
+def editar_reserva(request, reserva_id):
+    reserva_ref = db.collection('reservas').document(reserva_id)
+    reserva_doc = reserva_ref.get()
+
+    if not reserva_doc.exists:
+        messages.error(request, "Reserva no encontrada")
+        return redirect('mis_reservas')
+
+    reserva = reserva_doc.to_dict()
+
+    if request.method == 'POST':
+        nombre_cliente = request.POST.get('nombre_cliente')
+        habitacion = request.POST.get('habitacion')
+        fecha_entrada = request.POST.get('fecha_entrada')
+        fecha_salida = request.POST.get('fecha_salida')
+
+        try:
+            reserva_ref.update({
+                'nombre_cliente': nombre_cliente,
+                'habitacion': habitacion,
+                'fecha_entrada': fecha_entrada,
+                'fecha_salida': fecha_salida,
+                'fecha_modificacion': firestore.SERVER_TIMESTAMP
+            })
+
+            messages.success(request, "Reserva actualizada correctamente")
+            return redirect('mis_reservas')
+
+        except Exception as e:
+            messages.error(request, f"Error: {e}")
+
+    return render(request, 'reservas/editar.html', {'reserva': reserva})

@@ -1,32 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Mis Reservas</title>
     <style>
-        body {
-            font-family: Arial;
-            background: #f8f9fc;
-            padding: 40px;
-        }
-        table {
-            width: 100%;
-            background: white;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
+        body { font-family: sans-serif; background: #f4f7f6; padding: 30px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: #4e73df; color: white; }
-        a {
-            padding: 6px 12px;
-            background: #e74a3b;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-        a:hover { background: #c0392b; }
+        .btn { padding: 6px 10px; text-decoration: none; border-radius: 4px; font-size: 13px; color: white; margin-right: 5px; }
+        .btn-edit { background: #f6c23e; }
+        .btn-cancel { background: #e74a3b; }
+        .btn-back { display: inline-block; margin-top: 20px; color: #4e73df; text-decoration: none; }
+        .status { font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+        .active { background: #d1e7dd; color: #0f5132; }
+        .cancelled { background: #f8d7da; color: #842029; }
     </style>
 </head>
 <body>
@@ -34,34 +22,46 @@
 <h2>Mis Reservas</h2>
 
 <table>
-    <tr>
-        <th>Habitación</th>
-        <th>Entrada</th>
-        <th>Salida</th>
-        <th>Estado</th>
-        <th>Acción</th>
-    </tr>
-
-    {% for reserva in reservas %}
-    <tr>
-        <td>{{ reserva.habitacion }}</td>
-        <td>{{ reserva.fecha_entrada }}</td>
-        <td>{{ reserva.fecha_salida }}</td>
-        <td>{{ reserva.estado }}</td>
-        <td>
-            {% if reserva.estado != "Cancelada" %}
-            <a href="{% url 'cancelar_reserva' reserva.id %}">Cancelar</a>
-            {% else %}
-            Cancelada
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Habitación</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reserva in reservas %}
+        <tr>
+            <td>{{ reserva.nombre_cliente }}</td>
+            <td>{{ reserva.habitacion }}</td>
+            <td>{{ reserva.fecha_entrada }}</td>
+            <td>{{ reserva.fecha_salida }}</td>
+            <td>
+                <span class="status {% if reserva.estado == 'Activa' %}active{% else %}cancelled{% endif %}">
+                    {{ reserva.estado }}
+                </span>
+            </td>
+            <td>
+                {% if reserva.estado != "Cancelada" %}
+                    <a href="{% url 'editar_reserva' reserva.id %}" class="btn btn-edit">Editar</a>
+                    <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn btn-cancel">Cancelar</a>
+                {% else %}
+                    <small style="color: gray;">Sin acciones</small>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align: center;">No tienes reservas aún.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
-<br>
-<a href="{% url 'dashboard' %}" style="background:#4e73df;">Volver</a>
+<a href="{% url 'dashboard' %}" class="btn-back">← Volver al Dashboard</a>
 
 </body>
 </html>

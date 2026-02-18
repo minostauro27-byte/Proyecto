@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Reserva</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 380px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h2 { 
+            text-align: center; 
+            color: #333;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-sizing: border-box; 
+        }
+        input:focus {
+            border-color: #f6c23e;
+            outline: none;
+        }
+        button {
+            background: #f6c23e; 
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover { 
+            background: #dfa100; 
+        }
+        .btn-volver {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #4e73df;
+            font-size: 14px;
+        }
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .error { color: #e74a3b; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Modificar Reserva</h2>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>Nombre del Cliente:</label>
+        <input type="text" name="nombre_cliente" value="{{ reserva.nombre_cliente }}" required>
+
+        <label>Número de Habitación:</label>
+        <input type="text" name="habitacion" value="{{ reserva.habitacion }}" required>
+        
+        <label>Fecha de Entrada:</label>
+        <input type="date" name="fecha_entrada" value="{{ reserva.fecha_entrada }}" required>
+        
+        <label>Fecha de Salida:</label>
+        <input type="date" name="fecha_salida" value="{{ reserva.fecha_salida }}" required>
+        
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+    <a href="{% url 'mis_reservas' %}" class="btn-volver">Volver a mis reservas</a>
+</div>
+
+</body>
+</html>
